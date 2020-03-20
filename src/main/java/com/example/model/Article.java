@@ -48,8 +48,15 @@ public class Article {
 
         if(this.tags == null)   this.tags = new ArrayList<>();
 
-        if(isPassValidTag(tag));
-            this.tags.add(new Tag(tag.trim()));
+        if(isPassValidTag(tag)){
+
+            Tag tagObj = Tag.builder()
+                    .article(this)
+                    .tag(tag.trim())
+                    .build();
+
+            this.tags.add(tagObj);
+        }
     }
 
     public boolean isPassValidTag(String tag){
@@ -70,7 +77,11 @@ public class Article {
             tags.stream()
                     .filter(tag-> isPassValidTag(tag))
                     .map(String::trim)
-                    .forEach((tag)-> this.tags.add(new Tag(tag)));
+                    .map(tagStr -> Tag.builder()
+                            .article(this)
+                            .tag(tagStr)
+                            .build())
+                    .forEach((tagObj)-> this.tags.add(tagObj));
         }
     }
 
@@ -82,7 +93,10 @@ public class Article {
             List<Tag> newTagList = tags.stream()
                     .filter(tag -> isPassValidTag(tag))
                     .map(String::trim)
-                    .map(Tag::new)
+                    .map(tagStr -> Tag.builder()
+                            .article(this)
+                            .tag(tagStr)
+                            .build())
                     .collect(Collectors.toList());
 
             this.tags = newTagList;

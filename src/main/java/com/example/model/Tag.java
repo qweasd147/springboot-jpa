@@ -24,7 +24,8 @@ public class Tag {
     private String tag;
 
     @Builder
-    public Tag(String tag) {
+    private Tag(Article article, String tag) {
+        this.article = article;
         this.tag = tag;
     }
 }

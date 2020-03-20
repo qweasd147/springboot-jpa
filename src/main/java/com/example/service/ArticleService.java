@@ -4,6 +4,7 @@ import com.example.model.Article;
 import com.example.model.ArticleDto;
 import com.example.repository.ArticleRepository;
 import lombok.AllArgsConstructor;
+import org.hibernate.Hibernate;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -22,8 +23,33 @@ public class ArticleService {
         return articleRepository.findAll(pageable);
     }
 
+    public Page<Article> searchAllByRequest(ArticleDto.ListRequest listRequest, Pageable pageable){
+
+        return articleRepository.findAllByDto(listRequest);
+    }
+
+    public List<Article> searchAllWithTags(){
+
+        List<Article> articles = articleRepository.findAll();
+
+        articles.forEach(article -> Hibernate.initialize(article.getTags()));
+
+        return articles;
+    }
+
     public Article searchOne(Long articleIdx){
         return articleRepository.findById(articleIdx).orElse(null);
+    }
+
+    public Article searchOneWithTags(Long articleIdx){
+
+        Article article = articleRepository
+                .findById(articleIdx)
+                .orElseThrow(() -> new RuntimeException("해당 idx로 user를 찾지 못했습니다."));
+
+        Hibernate.initialize(article.getTags());
+
+        return article;
     }
 
     public Article register(ArticleDto.CreateReq createReq){
