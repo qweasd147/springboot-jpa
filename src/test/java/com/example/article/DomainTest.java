@@ -16,6 +16,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceUnitUtil;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 @ExtendWith(SpringExtension.class)
 @AutoConfigureMockMvc
 @SpringBootTest
@@ -32,13 +35,29 @@ public class DomainTest {
     private EntityManager em;
 
     @Test
-    @DisplayName("lazy loading 타입 제대로 로딩 되었나 테스트")
-    public void lazyLoadTest(){
+    @DisplayName("lazy 타입 initialize 사용 하여 초기화 테스트")
+    public void lazyLoadInitTest(){
 
-        Article article = articleService.searchOneWithTags(1L);
+        Article articleWithTags = articleService.searchOneWithTags(1L);
 
         boolean isLoaded = em.getEntityManagerFactory()
                 .getPersistenceUnitUtil()
-                .isLoaded(article, "tags");
+                .isLoaded(articleWithTags, "tags");
+
+        assertTrue(isLoaded);
+    }
+
+    @Test
+    @DisplayName("lazy 타입 initialize 사용x 기본 테스트")
+    public void lazyLoadingDefault(){
+
+        Article articleWithoutTags = articleService.searchOne(1L);
+
+        boolean isLoaded = em.getEntityManagerFactory()
+                .getPersistenceUnitUtil()
+                .isLoaded(articleWithoutTags, "tags");
+
+
+        assertFalse(isLoaded);
     }
 }
