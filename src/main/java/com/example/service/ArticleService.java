@@ -4,6 +4,7 @@ import com.example.model.Article;
 import com.example.model.ArticleDto;
 import com.example.repository.ArticleRepository;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.hibernate.Hibernate;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -15,6 +16,7 @@ import java.util.List;
 @Service
 @Transactional
 @AllArgsConstructor
+@Slf4j
 public class ArticleService {
 
     private final ArticleRepository articleRepository;
@@ -81,8 +83,8 @@ public class ArticleService {
     }
 
     public Article incrementCountWithLock(Long articleIdx){
-        Article article = articleRepository.findBoardOneWithLock(articleIdx);
 
+        Article article = articleRepository.findArticleOneWithLock(articleIdx);
         article.incrementCount();
 
         return article;
@@ -97,10 +99,12 @@ public class ArticleService {
             );
 
         article.incrementCount();
+
         return article;
     }
 
     public Article IncrementCountFromRepository(Long articleIdx){
-        return articleRepository.incrementBoardCount(articleIdx);
+
+        return articleRepository.incrementCountByRepository(articleIdx);
     }
 }

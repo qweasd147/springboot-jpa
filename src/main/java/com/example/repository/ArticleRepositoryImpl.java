@@ -8,7 +8,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.LockModeType;
 import java.util.HashMap;
@@ -41,8 +40,7 @@ public class ArticleRepositoryImpl extends QuerydslRepositorySupport implements 
     }
 
     @Override
-    @Transactional
-    public Article incrementBoardCount(Long boardIdx){
+    public Article incrementCountByRepository(Long boardIdx){
 
         Map<String, Object> properties = new HashMap<>();
 

@@ -2,6 +2,9 @@ insert into article(idx, subject, contents, `count`) values (1, 'init subject1',
 insert into article(idx, subject, contents, `count`) values (2, 'init subject2', 'init contents2', 0);
 insert into article(idx, subject, contents, `count`) values (3, 'init subject3', 'init contents3', 0);
 insert into article(idx, subject, contents, `count`) values (4, 'init subject4', 'init contents4', 0);
+insert into article(idx, subject, contents, `count`) values (5, 'init subject5', 'init contents5', 0);
+insert into article(idx, subject, contents, `count`) values (6, 'init subject6', 'init contents6', 0);
+insert into article(idx, subject, contents, `count`) values (7, 'init subject7', 'init contents7', 0);
 
 insert into tag values (1, 'name1', 1);
 insert into tag values (2, 'name2', 1);

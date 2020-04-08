@@ -22,5 +22,5 @@ public interface ArticleRepository extends JpaRepository<Article, Long>, Article
 
     @Query("SELECT article FROM Article article WHERE article.idx = :articleIdx")
     @Lock(LockModeType.PESSIMISTIC_WRITE)
-    Article findBoardOneWithLock(Long articleIdx);
+    Article findArticleOneWithLock(@Param("articleIdx")Long articleIdx);
 }

@@ -4,10 +4,7 @@ import com.example.model.Article;
 import com.example.model.ArticleDto;
 import com.example.service.ArticleService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -33,6 +30,14 @@ public class ArticleController {
     public ArticleDto.Response searchOne(@PathVariable Long articleIdx){
 
         Article article = articleService.searchOne(articleIdx);
+
+        return ArticleDto.Response.of(article);
+    }
+
+    @PutMapping("/increment/{articleIdx}")
+    public ArticleDto.Response increment(@PathVariable Long articleIdx){
+
+        Article article = articleService.incrementCountWithLock(articleIdx);
 
         return ArticleDto.Response.of(article);
     }
