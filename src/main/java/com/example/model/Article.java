@@ -31,6 +31,8 @@ public class Article {
     @Lob
     private String contents;
 
+    private int count;
+
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "article_idx")
     @OrderBy("idx ASC ")
@@ -38,9 +40,10 @@ public class Article {
     private List<Tag> tags = new ArrayList<>();
 
     @Builder
-    public Article(String subject, String contents, List<Tag> tags) {
+    public Article(String subject, String contents, int count, List<Tag> tags) {
         this.subject = subject;
         this.contents = contents;
+        this.count = count;
         this.tags = tags;
     }
 
@@ -108,5 +111,9 @@ public class Article {
         this.contents = contents;
 
         return this;
+    }
+
+    public void incrementCount(){
+        this.count = this.count + 1;
     }
 }

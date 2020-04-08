@@ -19,6 +19,10 @@ public class ArticleService {
 
     private final ArticleRepository articleRepository;
 
+    public List<Article> searchAll(){
+        return articleRepository.findAll();
+    }
+
     public Page<Article> searchAll(Pageable pageable){
         return articleRepository.findAll(pageable);
     }
@@ -74,5 +78,29 @@ public class ArticleService {
 
     public List<Article> searchAllByTags(List<String> tags){
         return articleRepository.findBySeveralTags(tags);
+    }
+
+    public Article incrementCountWithLock(Long articleIdx){
+        Article article = articleRepository.findBoardOneWithLock(articleIdx);
+
+        article.incrementCount();
+
+        return article;
+    }
+
+    public Article incrementCountWithoutLock(Long articleIdx){
+
+        Article article = articleRepository
+            .findById(articleIdx)
+            .orElseThrow(
+                () -> new IllegalArgumentException("잘못된 번호" + articleIdx)
+            );
+
+        article.incrementCount();
+        return article;
+    }
+
+    public Article IncrementCountFromRepository(Long articleIdx){
+        return articleRepository.incrementBoardCount(articleIdx);
     }
 }

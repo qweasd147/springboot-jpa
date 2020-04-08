@@ -7,4 +7,6 @@ import org.springframework.data.domain.Page;
 public interface ArticleRepositoryCustom {
 
     Page<Article> findAllByDto(ArticleDto.ListRequest listRequest);
+
+    Article incrementBoardCount(Long boardIdx);
 }

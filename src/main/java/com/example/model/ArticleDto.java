@@ -24,12 +24,14 @@ public class ArticleDto {
 
         @NotBlank(message = "내용 필수 입력")
         private String contents;
+        private int count = 0;
         private Set<String> tags = new LinkedHashSet<>();
 
         @Builder
-        public CreateReq(String subject, String contents, Set<String> tags) {
+        public CreateReq(String subject, String contents, int count, Set<String> tags) {
             this.subject = subject;
             this.contents = contents;
+            this.count = count;
             this.tags = tags;
         }
 
@@ -38,6 +40,7 @@ public class ArticleDto {
             Article article = Article.builder()
                     .subject(this.subject)
                     .contents(this.contents)
+                    .count(this.count)
                     .build();
 
             if(tags != null)
@@ -53,12 +56,14 @@ public class ArticleDto {
 
         private String subject;
         private String contents;
+        private int count = 0;
         private Set<String> tags = new LinkedHashSet<>();
 
         @Builder
-        public ModifyRequest(String subject, String contents, Set<String> tags) {
+        public ModifyRequest(String subject, String contents, int count, Set<String> tags) {
             this.subject = subject;
             this.contents = contents;
+            this.count = count;
             this.tags = tags;
         }
     }
@@ -70,13 +75,15 @@ public class ArticleDto {
         private Long idx;
         private String subject;
         private String contents;
+        private int count = 0;
         private List<String> tags;
 
         @Builder
-        public Response(Long idx, String subject, String contents, List<String> tags) {
+        public Response(Long idx, String subject, String contents, int count, List<String> tags) {
             this.idx = idx;
             this.subject = subject;
             this.contents = contents;
+            this.count = count;
             this.tags = tags;
         }
 
@@ -90,6 +97,7 @@ public class ArticleDto {
                     .idx(article.getIdx())
                     .subject(article.getSubject())
                     .contents(article.getContents())
+                    .count(article.getCount())
                     .tags(tagList)
                     .build();
         }
