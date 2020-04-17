@@ -44,7 +44,8 @@ public class ArticleService {
     }
 
     public Article searchOne(Long articleIdx){
-        return articleRepository.findById(articleIdx).orElse(null);
+
+        return articleRepository.findArticleOneWithTag(articleIdx).orElse(null);
     }
 
     public Article searchOneWithTags(Long articleIdx){
@@ -86,6 +87,14 @@ public class ArticleService {
 
         Article article = articleRepository.findArticleOneWithLock(articleIdx);
         article.incrementCount();
+
+        return article;
+    }
+
+    public Article incrementTagCountWithLock(Long articleIdx){
+
+        Article article = articleRepository.findArticleOneWithLock(articleIdx);
+        article.incrementChildTagCount();
 
         return article;
     }

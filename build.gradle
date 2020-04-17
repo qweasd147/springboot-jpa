@@ -35,10 +35,13 @@ dependencies {
     compileOnly 'org.projectlombok:lombok'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     runtimeOnly 'com.h2database:h2'
+    //compile group: 'mysql', name: 'mysql-connector-java', version: '8.0.16'
     annotationProcessor 'org.projectlombok:lombok'
 
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
         exclude module: 'junit'
+        exclude group: "org.junit.vintage", module: "junit-vintage-engine"
+        exclude group: "com.vaadin.external.google", module: "android-json"
     }
 
     testImplementation('org.junit.jupiter:junit-jupiter-api')

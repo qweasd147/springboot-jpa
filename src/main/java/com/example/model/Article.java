@@ -116,4 +116,8 @@ public class Article {
     public void incrementCount(){
         this.count = this.count + 1;
     }
+
+    public void incrementChildTagCount(){
+        this.getTags().forEach(Tag::incrementCount);
+    }
 }

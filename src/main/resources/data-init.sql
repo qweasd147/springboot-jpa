@@ -6,15 +6,15 @@ insert into article(idx, subject, contents, `count`) values (5, 'init subject5',
 insert into article(idx, subject, contents, `count`) values (6, 'init subject6', 'init contents6', 0);
 insert into article(idx, subject, contents, `count`) values (7, 'init subject7', 'init contents7', 0);
 
-insert into tag values (1, 'name1', 1);
-insert into tag values (2, 'name2', 1);
-insert into tag values (3, 'name3', 1);
+insert into tag(idx, article_idx, tag, `count`) values (1, 5, 'name1', 0);
+insert into tag(idx, article_idx, tag, `count`) values (2, 5, 'name2', 0);
+insert into tag(idx, article_idx, tag, `count`) values (3, 5, 'name3', 0);
 
-insert into tag values (4, 'name1', 2);
-insert into tag values (5, 'name2', 2);
-insert into tag values (6, 'name3', 2);
+insert into tag(idx, article_idx, tag, `count`) values (4, 5, 'name1', 0);
+insert into tag(idx, article_idx, tag, `count`) values (5, 5, 'name2', 0);
+insert into tag(idx, article_idx, tag, `count`) values (6, 5, 'name3', 0);
 
 
-insert into tag values (7, 'name1', 3);
-insert into tag values (8, 'name2', 3);
-insert into tag values (9, 'name3', 3);
+insert into tag(idx, article_idx, tag, `count`) values (7, 5, 'name1', 0);
+insert into tag(idx, article_idx, tag, `count`) values (8, 5, 'name2', 0);
+insert into tag(idx, article_idx, tag, `count`) values (9, 5, 'name3', 0);

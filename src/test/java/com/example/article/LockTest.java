@@ -2,6 +2,7 @@ package com.example.article;
 
 import com.example.ThreadTestUtils;
 import com.example.model.Article;
+import com.example.model.Tag;
 import com.example.service.ArticleService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.DisplayName;
@@ -125,7 +126,7 @@ public class LockTest {
     @DisplayName("성능 테스트")
     class CheckTime {
 
-        @Test
+        //@Test
         @DisplayName("성능 지표 보기")
         public void checkTime() throws InterruptedException {
 
@@ -170,5 +171,37 @@ public class LockTest {
             log.info(stopWatch.prettyPrint());
         }
 
+    }
+
+    @Nested
+    @DisplayName("child entity 테스트")
+    class ChildEntity {
+
+        @Test
+        @DisplayName("같은 entity의 연관 child 자동으로 lock이 걸리는지 테스트")
+        public void withoutLockTest() throws InterruptedException {
+
+            long targetArticleIdx = 5L;
+
+            Runnable runnable = ()->{
+                IntStream.range(0, LOCK_NUM_ITERATIONS)
+                        .parallel()
+                        .forEach((ignore)-> articleService.incrementTagCountWithLock(targetArticleIdx));
+            };
+
+            boolean isSuccessFull = ThreadTestUtils.run(LOCK_NUM_THREADS, (ignore) -> runnable);
+
+            em.clear();
+
+            Article article = articleService.searchOne(targetArticleIdx);
+
+            int totalCount = article.getTags().stream()
+                    .mapToInt(Tag::getCount)
+                    .sum();
+
+            assertThat(totalCount, comparesEqualTo(LOCK_NUM_THREADS * LOCK_NUM_ITERATIONS * article.getTags().size()));
+            assertTrue(isSuccessFull);
+            log.info("count : {}", totalCount);
+        }
     }
 }

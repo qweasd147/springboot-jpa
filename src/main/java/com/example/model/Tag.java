@@ -23,9 +23,15 @@ public class Tag {
 
     private String tag;
 
+    private int count;
+
     @Builder
     private Tag(Article article, String tag) {
         this.article = article;
         this.tag = tag;
+    }
+
+    public void incrementCount(){
+        this.count = this.count + 1;
     }
 }

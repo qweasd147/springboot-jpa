@@ -1,14 +1,12 @@
 package com.example.repository;
 
 import com.example.model.Article;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Lock;
-import org.springframework.data.jpa.repository.Modifying;
-import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.jpa.repository.*;
 import org.springframework.data.repository.query.Param;
 
 import javax.persistence.LockModeType;
 import java.util.List;
+import java.util.Optional;
 
 public interface ArticleRepository extends JpaRepository<Article, Long>, ArticleRepositoryCustom {
 
@@ -23,4 +21,8 @@ public interface ArticleRepository extends JpaRepository<Article, Long>, Article
     @Query("SELECT article FROM Article article WHERE article.idx = :articleIdx")
     @Lock(LockModeType.PESSIMISTIC_WRITE)
     Article findArticleOneWithLock(@Param("articleIdx")Long articleIdx);
+
+    @Query("SELECT article FROM Article article WHERE article.idx = :articleIdx")
+    @EntityGraph(attributePaths = "tags")
+    Optional<Article> findArticleOneWithTag(@Param("articleIdx")Long articleIdx);
 }
