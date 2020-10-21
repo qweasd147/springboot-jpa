@@ -116,4 +116,9 @@ public class ArticleService {
 
         return articleRepository.incrementCountByRepository(articleIdx);
     }
+
+    public ArticleDto.WithArticleInfo findByIdxWithArticleInfo(Long articleIdx){
+
+        return this.articleRepository.findByIdxWithArticleInfo(articleIdx);
+    }
 }

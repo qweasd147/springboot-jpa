@@ -42,4 +42,10 @@ public class ArticleController {
         return ArticleDto.Response.of(article);
     }
 
+    @GetMapping("/info/{articleIdx}")
+    public ArticleDto.WithArticleInfo findWithArticleInfo(@PathVariable Long articleIdx){
+
+        return this.articleService.findByIdxWithArticleInfo(articleIdx);
+    }
+
 }

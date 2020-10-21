@@ -8,5 +8,7 @@ public interface ArticleRepositoryCustom {
 
     Page<Article> findAllByDto(ArticleDto.ListRequest listRequest);
 
-    Article incrementCountByRepository(Long boardIdx);
+    Article incrementCountByRepository(Long articleIdx);
+
+    ArticleDto.WithArticleInfo findByIdxWithArticleInfo(Long articleIdx);
 }

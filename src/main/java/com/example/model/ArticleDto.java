@@ -1,8 +1,6 @@
 package com.example.model;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -128,5 +126,13 @@ public class ArticleDto {
 
             return PageRequest.of(this.page, this.size, Sort.Direction.DESC, "idx");
         }
+    }
+
+    @Getter
+    @RequiredArgsConstructor
+    public static class WithArticleInfo {
+
+        private final Article article;
+        private final List<ArticleInfo> articleInfos;
     }
 }
