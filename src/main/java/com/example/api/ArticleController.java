@@ -3,6 +3,7 @@ package com.example.api;
 import com.example.model.Article;
 import com.example.model.ArticleDto;
 import com.example.service.ArticleService;
+import com.example.service.ArticleServiceFacade;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,11 +16,12 @@ import java.util.stream.Collectors;
 public class ArticleController {
 
     private final ArticleService articleService;
+    private final ArticleServiceFacade articleServiceFacade;
 
     @GetMapping
     public List<ArticleDto.Response> searchAll(){
 
-        List<Article> articles = articleService.searchAll();
+        List<Article> articles = articleServiceFacade.searchAllWithInfo();
 
         return articles.stream()
                 .map(ArticleDto.Response::of)

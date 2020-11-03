@@ -31,6 +31,10 @@ public class Article {
     @Lob
     private String contents;
 
+    //기본적으로 lazy 타입이 적용안됨
+    @OneToOne(mappedBy = "article", fetch = FetchType.LAZY)
+    private ArticleDetail articleDetail;
+
     private int count;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)

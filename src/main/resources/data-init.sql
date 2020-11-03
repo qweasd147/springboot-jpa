@@ -32,3 +32,11 @@ insert into article_info(article_idx, `data`) values (2, 'data2-3');
 insert into article_info(article_idx, `data`) values (2, 'data2-4');
 insert into article_info(article_idx, `data`) values (2, 'data2-5');
 insert into article_info(article_idx, `data`) values (2, 'data2-6');
+
+insert into article_detail(article_idx, `data`) values (1, 'detail-1');
+insert into article_detail(article_idx, `data`) values (2, 'detail-1');
+insert into article_detail(article_idx, `data`) values (3, 'detail-1');
+insert into article_detail(article_idx, `data`) values (4, 'detail-1');
+insert into article_detail(article_idx, `data`) values (5, 'detail-1');
+insert into article_detail(article_idx, `data`) values (6, 'detail-1');
+insert into article_detail(article_idx, `data`) values (7, 'detail-1');

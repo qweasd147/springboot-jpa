@@ -8,13 +8,13 @@ import javax.persistence.*;
 @Entity
 @NoArgsConstructor
 @Getter
-public class ArticleInfo {
+public class ArticleDetail {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idx;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "article_idx", nullable = false)
     private Article article;
 
