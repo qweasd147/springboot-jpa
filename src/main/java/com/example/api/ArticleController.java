@@ -50,4 +50,21 @@ public class ArticleController {
         return this.articleService.findByIdxWithArticleInfo(articleIdx);
     }
 
+    @PostMapping("/cache/{articleIdx}")
+    public ArticleDto.Response putInCache(@PathVariable Long articleIdx){
+
+        //캐시 put 유도
+        Article article = this.articleServiceFacade.findByIdxMaybeInCache(articleIdx);
+
+        return ArticleDto.Response.of(article);
+    }
+
+    @GetMapping("/cache/{articleIdx}")
+    public ArticleDto.Response maybeHitCache(@PathVariable Long articleIdx){
+
+        Article article = this.articleServiceFacade.findByIdxMaybeInCache(articleIdx);
+
+        return ArticleDto.Response.of(article);
+    }
+
 }

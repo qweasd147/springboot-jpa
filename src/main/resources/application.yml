@@ -19,3 +19,12 @@ spring:
   devtools:
     livereload:
       enabled: true
+
+
+logging:
+  level:
+    org:
+      springframework:
+        cache:
+          interceptor:
+            CacheInterceptor: TRACE
