@@ -112,7 +112,7 @@ public class ArticleService {
         return article;
     }
 
-    public Article IncrementCountFromRepository(Long articleIdx){
+    public Article incrementCountFromRepository(Long articleIdx){
 
         return articleRepository.incrementCountByRepository(articleIdx);
     }
@@ -120,5 +120,10 @@ public class ArticleService {
     public ArticleDto.WithArticleInfo findByIdxWithArticleInfo(Long articleIdx){
 
         return this.articleRepository.findByIdxWithArticleInfo(articleIdx);
+    }
+
+    public ArticleDto.WithArticleDetails findByIdxWithArticleDetails(Long articleIdx){
+
+        return this.articleRepository.findByIdxWithArticleDetails(articleIdx);
     }
 }

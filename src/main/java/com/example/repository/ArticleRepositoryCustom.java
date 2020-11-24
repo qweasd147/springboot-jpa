@@ -11,4 +11,6 @@ public interface ArticleRepositoryCustom {
     Article incrementCountByRepository(Long articleIdx);
 
     ArticleDto.WithArticleInfo findByIdxWithArticleInfo(Long articleIdx);
+
+    ArticleDto.WithArticleDetails findByIdxWithArticleDetails(Long articleIdx);
 }

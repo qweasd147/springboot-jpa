@@ -135,4 +135,12 @@ public class ArticleDto {
         private final Article article;
         private final List<ArticleInfo> articleInfos;
     }
+
+    @Getter
+    @RequiredArgsConstructor
+    public static class WithArticleDetails {
+
+        private final Article article;
+        private final ArticleDetail articleInfos;
+    }
 }

@@ -3,6 +3,9 @@ package com.example.repository;
 import com.example.model.Article;
 import com.example.model.ArticleDto;
 import com.example.model.ArticleInfo;
+import com.example.model.QArticleDetail;
+import com.querydsl.core.Tuple;
+import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.JPQLQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.data.domain.Page;
@@ -17,6 +20,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import static com.example.model.QArticle.article;
+import static com.example.model.QArticleDetail.articleDetail;
 import static com.example.model.QArticleInfo.articleInfo;
 import static com.querydsl.core.group.GroupBy.groupBy;
 import static com.querydsl.core.group.GroupBy.list;
@@ -77,5 +81,17 @@ public class ArticleRepositoryImpl extends QuerydslRepositorySupport implements 
                 .map(entry-> new ArticleDto.WithArticleInfo(entry.getKey(), entry.getValue()))
                 .findFirst()
                 .orElse(null);
+    }
+
+    @Override
+    public ArticleDto.WithArticleDetails findByIdxWithArticleDetails(Long articleIdx) {
+
+        return getQuerydsl().createQuery()
+                .select(Projections.constructor(ArticleDto.WithArticleDetails.class, article, articleDetail))
+                .from(article)
+                    .innerJoin(articleInfo)
+                        .on(article.idx.eq(articleInfo.article.idx))
+                .where(article.idx.eq(articleIdx))
+                .fetchOne();
     }
 }
