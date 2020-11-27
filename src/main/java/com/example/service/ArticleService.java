@@ -1,7 +1,9 @@
 package com.example.service;
 
 import com.example.model.Article;
+import com.example.model.ArticleDetail;
 import com.example.model.ArticleDto;
+import com.example.repository.ArticleDetailRepository;
 import com.example.repository.ArticleRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,6 +22,7 @@ import java.util.List;
 public class ArticleService {
 
     private final ArticleRepository articleRepository;
+    private final ArticleDetailRepository articleDetailRepository;
 
     public List<Article> searchAll(){
         return articleRepository.findAll();
@@ -46,6 +49,12 @@ public class ArticleService {
     public Article searchOne(Long articleIdx){
 
         return articleRepository.findArticleOneWithTag(articleIdx).orElse(null);
+    }
+
+    public Article searchOneWithoutTags(Long articleIdx){
+
+        return articleRepository.findById(articleIdx)
+                .orElse(null);
     }
 
     public Article searchOneWithTags(Long articleIdx){
@@ -125,5 +134,11 @@ public class ArticleService {
     public ArticleDto.WithArticleDetails findByIdxWithArticleDetails(Long articleIdx){
 
         return this.articleRepository.findByIdxWithArticleDetails(articleIdx);
+    }
+
+    public ArticleDetail searchDetailByIdx(Long detailIdx){
+
+        return this.articleDetailRepository.findById(detailIdx)
+                .orElse(null);
     }
 }
