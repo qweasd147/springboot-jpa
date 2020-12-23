@@ -95,4 +95,11 @@ public class ArticleController {
 
     }
 
+    @PostMapping("/bulk")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void bulkInsert(@RequestBody List<ArticleDto.CreateReq> payload){
+
+        this.articleService.saveAll(payload);
+    }
+
 }

@@ -4,6 +4,7 @@ import com.example.model.Article;
 import com.example.model.ArticleDetail;
 import com.example.model.ArticleDto;
 import com.example.repository.ArticleDetailRepository;
+import com.example.repository.ArticleJDBCRepository;
 import com.example.repository.ArticleRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,6 +24,7 @@ public class ArticleService {
 
     private final ArticleRepository articleRepository;
     private final ArticleDetailRepository articleDetailRepository;
+    private final ArticleJDBCRepository articleJDBCRepository;
 
     public List<Article> searchAll(){
         return articleRepository.findAll();
@@ -140,5 +142,9 @@ public class ArticleService {
 
         return this.articleDetailRepository.findById(detailIdx)
                 .orElse(null);
+    }
+
+    public void saveAll(List<ArticleDto.CreateReq> createReqList){
+        articleJDBCRepository.saveAll(createReqList);
     }
 }

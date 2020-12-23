@@ -9,6 +9,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -24,6 +25,7 @@ import static org.hamcrest.number.OrderingComparison.comparesEqualTo;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @ExtendWith(SpringExtension.class)
+@ExtendWith(MockitoExtension.class)
 @SpringBootTest
 @DisplayName("비관적 LOCK 테스트")
 @Slf4j
@@ -80,7 +82,7 @@ public class LockTest {
             Runnable runnable = ()->{
                 IntStream.range(0, LOCK_NUM_ITERATIONS)
                         .parallel()
-                        .forEach((ignore)-> articleService.IncrementCountFromRepository(targetArticleIdx));
+                        .forEach((ignore)-> articleService.incrementCountFromRepository(targetArticleIdx));
             };
 
             boolean isSuccessFull = ThreadTestUtils.run(LOCK_NUM_THREADS, (ignore)-> runnable);
@@ -137,7 +139,7 @@ public class LockTest {
             Runnable repositoryLockRunnable = ()->{
                 IntStream.range(0, LOCK_NUM_ITERATIONS)
                         .parallel()
-                        .forEach((ignore)-> articleService.IncrementCountFromRepository(repositoryLockIdx));
+                        .forEach((ignore)-> articleService.incrementCountFromRepository(repositoryLockIdx));
             };
 
             Runnable serviceLockRunnable = ()->{
